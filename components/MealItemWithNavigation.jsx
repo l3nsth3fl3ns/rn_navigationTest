@@ -1,6 +1,16 @@
 import {Image, Platform, Pressable, StyleSheet, Text, View} from "react-native";
+import {useNavigation} from "@react-navigation/native";
 
-const MealItem = ({title, imageUrl, duration, complexity, affordability, onPress}) => {
+const MealItemWithNavigation = ({id, title, imageUrl, duration, complexity, affordability, onPress}) => {
+    // as this is no screen route and navigation are not passed on to this component
+    const navigation = useNavigation() // assigns route and navigation just like screen
+
+    const selectMealItemHandler = () => {
+        navigation.navigate('MealDetails', {
+        mealId: id
+    })
+    }
+
     return (
         <View style={styles.mealItem}>
             <Pressable
@@ -68,4 +78,4 @@ const styles = StyleSheet.create({
     },
 })
 
-export default MealItem
+export default MealItemWithNavigation
