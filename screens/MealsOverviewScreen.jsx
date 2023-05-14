@@ -26,12 +26,14 @@ const MealsOverviewScreen = ({navigation, route}) => {
 
 
     const renderMealItem = (itemData) => {
+
         const item = itemData.item
         // pass on as prop to MealItem
         const pressHandler = () => {
         navigation.navigate('MealDetails', {
             mealId: item.id,
             description: item.steps
+            // TODO Create component linking to the same screen but with different route.params. See what happens?
         })
     }
         const mealItemProps = {
