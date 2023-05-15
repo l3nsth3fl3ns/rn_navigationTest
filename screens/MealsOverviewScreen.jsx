@@ -4,6 +4,7 @@ import {View, StyleSheet, FlatList} from "react-native";
 import {MEALS, CATEGORIES} from "../data/dummy_data";
 import MealItem from "../components/MealItem";
 import MealItemWithNavigation from "../components/MealItemWithNavigation";
+import TestButton from "../components/TestButton";
 
 const MealsOverviewScreen = ({navigation, route}) => {
     const catID = route.params.categoryId
@@ -22,18 +23,21 @@ const MealsOverviewScreen = ({navigation, route}) => {
         })
     }, [catID, navigation])
 
-
+    // let testItem ; for test purposes only
 
 
     const renderMealItem = (itemData) => {
 
         const item = itemData.item
+        // testItem = itemData.item.steps for test purposes only
         // pass on as prop to MealItem
         const pressHandler = () => {
         navigation.navigate('MealDetails', {
             mealId: item.id,
-            description: item.steps
+            description: item.steps,
             // TODO Create component linking to the same screen but with different route.params. See what happens?
+            // The app throws an error. Data is not globally put into single object when different pressHandlers link
+            // to the same screen. Test with TestButton.jsx
         })
     }
         const mealItemProps = {
@@ -43,9 +47,9 @@ const MealsOverviewScreen = ({navigation, route}) => {
             duration: item.duration,
             complexity: item.complexity,
             affordability: item.affordability,
-            onPress: pressHandler
+            onPress: pressHandler,
         }
-        return <MealItemWithNavigation {...mealItemProps} />
+        return <MealItem {...mealItemProps} />
     }
 
     return (
@@ -54,6 +58,7 @@ const MealsOverviewScreen = ({navigation, route}) => {
                       keyExtractor={(item) => item.id}
                       renderItem={renderMealItem}
             />
+            {/*<TestButton isVegan={testItem}/>*/}
         </View>
     )
 }
