@@ -1,8 +1,9 @@
-import {View, Text, StyleSheet, Image, ScrollView} from "react-native";
-import {useEffect, useLayoutEffect} from 'react'
+import {View, Text, StyleSheet, Image, ScrollView, Button} from "react-native";
+import {useLayoutEffect} from 'react'
 
 import {MEALS} from "../data/dummy_data";
-import MealDetails from "../components/MealDetails";
+import MealDetails from "../components/MealDetail/MealDetails";
+import IconButton from "../components/MealDetail/IconButton";
 
 
 const MealDetailsScreen = ({navigation, route}) => {
@@ -12,13 +13,21 @@ const MealDetailsScreen = ({navigation, route}) => {
     // get the exact meal given the params from the MealsOverViewScreen/Mea
     let selectedMeal = MEALS.find((meal) => meal.id === mealId)
 
+    const Logger = () => {
+        console.log('Pressed')
+    }
 
     // for the title of the page
     useLayoutEffect(() => {
         const MealTitle = selectedMeal.title
 
         navigation.setOptions({
-            title: MealTitle
+            title: MealTitle,
+            headerRight: () => { return(<IconButton
+                onPress={Logger}
+                icon='star'
+                color='yellow'
+            />) }
         })
     }, [mealId, navigation])
 
@@ -77,7 +86,7 @@ const styles = StyleSheet.create({
         padding: 17,
     },
     image: {
-        height: 100,
+        height: 200,
         width: "100%",
     },
     contentContainer: {

@@ -34,6 +34,7 @@ export default function App() {
                     <Stack.Screen
                         name='MealsOverview'
                         component={MealsOverviewScreen}
+                        // done in MealsOverScreen with UseLayoutEffect
                         /*options={({route, navigation}) => {
                             const {categoryId} = route.params
                             return {
@@ -41,7 +42,17 @@ export default function App() {
                             }
                         }}*/
                     />
-                    <Stack.Screen name='MealDetails' component={MealDetailsScreen} />
+                    <Stack.Screen
+                        name='MealDetails'
+                        component={MealDetailsScreen}
+                        // setting a header for the screen, either through functions or component
+                        // for interaction with the component better set options in the screen
+                        /*options={{headerRight: () => {
+                            return(
+                                <Text>In the header</Text>
+                            )
+                            }}}*/
+                    />
                 </Stack.Navigator>
             </NavigationContainer>
         </>

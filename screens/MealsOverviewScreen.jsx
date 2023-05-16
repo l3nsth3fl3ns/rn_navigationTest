@@ -34,10 +34,9 @@ const MealsOverviewScreen = ({navigation, route}) => {
         const pressHandler = () => {
         navigation.navigate('MealDetails', {
             mealId: item.id,
-            description: item.steps,
             // TODO Create component linking to the same screen but with different route.params. See what happens?
             // The app throws an error. Data is not globally put into single object when different pressHandlers link
-            // to the same screen. Test with TestButton.jsx
+            // to the same screen. Tested with TestButton.jsx
         })
     }
         const mealItemProps = {
