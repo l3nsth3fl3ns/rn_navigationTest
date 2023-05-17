@@ -15,7 +15,7 @@ const MealItemWithNavigation = ({id, title, imageUrl, duration, complexity, affo
         <View style={styles.mealItem}>
             <Pressable
                 style={({pressed}) => pressed ? styles.buttonPressed : null}
-                onPress={onPress}
+                onPress={selectMealItemHandler}
             >
                 <View>
                     <View>

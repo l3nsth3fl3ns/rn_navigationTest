@@ -8,6 +8,7 @@ import CategoriesScreen from "./screens/CategoriesScreen";
 import MealsOverviewScreen from "./screens/MealsOverviewScreen";
 import MealDetailsScreen from "./screens/MealDetailsScreen";
 import FavoritesScreen from "./screens/FavoritesScreen";
+import FavoritesContextProvider from "./store/context/favorites-context";
 
 
 const Stack = createNativeStackNavigator()
@@ -41,48 +42,50 @@ export default function App() {
     return (
         <>
             <StatusBar style='light'/>
-            <NavigationContainer>
-                <Stack.Navigator
-                    screenOptions={{
-                        headerStyle: {backgroundColor: '#517891'},
-                        headerTintColor: 'white',
-                        contentStyle: {backgroundColor: '#24180f'}
-                    }}
-                >
-                    <Stack.Screen
-                        name='DrawerNavigatorLoader'
-                        component={DrawerNavigator}
-                        // route and navigation are passed down to screen by React Navigation automatically
-                        // options function executes as soon as screen gets active
-                        options={{
-                            // title: 'All Categories'
-                            headerShown: false,
+            <FavoritesContextProvider>
+                <NavigationContainer>
+                    <Stack.Navigator
+                        screenOptions={{
+                            headerStyle: {backgroundColor: '#517891'},
+                            headerTintColor: 'white',
+                            contentStyle: {backgroundColor: '#24180f'}
                         }}
-                    />
-                    <Stack.Screen
-                        name='MealsOverview'
-                        component={MealsOverviewScreen}
-                        // done in MealsOverScreen with UseLayoutEffect
-                        /*options={({route, navigation}) => {
-                            const {categoryId} = route.params
-                            return {
-                                title: categoryId
-                            }
-                        }}*/
-                    />
-                    <Stack.Screen
-                        name='MealDetails'
-                        component={MealDetailsScreen}
-                        // setting a header for the screen, either through functions or component
-                        // for interaction with the component better set options in the screen
-                        /*options={{headerRight: () => {
-                            return(
-                                <Text>In the header</Text>
-                            )
-                            }}}*/
-                    />
-                </Stack.Navigator>
-            </NavigationContainer>
+                    >
+                        <Stack.Screen
+                            name='DrawerNavigatorLoader'
+                            component={DrawerNavigator}
+                            // route and navigation are passed down to screen by React Navigation automatically
+                            // options function executes as soon as screen gets active
+                            options={{
+                                // title: 'All Categories'
+                                headerShown: false,
+                            }}
+                        />
+                        <Stack.Screen
+                            name='MealsOverview'
+                            component={MealsOverviewScreen}
+                            // done in MealsOverScreen with UseLayoutEffect
+                            /*options={({route, navigation}) => {
+                                const {categoryId} = route.params
+                                return {
+                                    title: categoryId
+                                }
+                            }}*/
+                        />
+                        <Stack.Screen
+                            name='MealDetails'
+                            component={MealDetailsScreen}
+                            // setting a header for the screen, either through functions or component
+                            // for interaction with the component better set options in the screen
+                            /*options={{headerRight: () => {
+                                return(
+                                    <Text>In the header</Text>
+                                )
+                                }}}*/
+                        />
+                    </Stack.Navigator>
+                </NavigationContainer>
+            </FavoritesContextProvider>
         </>
 
     );

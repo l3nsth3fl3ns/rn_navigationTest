@@ -1,20 +1,30 @@
 import {View, Text, StyleSheet, Image, ScrollView, Button} from "react-native";
-import {useLayoutEffect} from 'react'
+import {useContext, useLayoutEffect} from 'react'
 
 import {MEALS} from "../data/dummy_data";
 import MealDetails from "../components/MealDetail/MealDetails";
 import IconButton from "../components/MealDetail/IconButton";
+import {FavoritesContext} from "../store/context/favorites-context";
 
 
 const MealDetailsScreen = ({navigation, route}) => {
+    const favoriteMealsCtx = useContext(FavoritesContext)
+
     const {mealId} = route.params
 
 
     // get the exact meal given the params from the MealsOverViewScreen/Mea
     let selectedMeal = MEALS.find((meal) => meal.id === mealId)
 
-    const Logger = () => {
-        console.log('Pressed')
+    const mealIsFavorite = favoriteMealsCtx.ids.includes(mealId)
+
+
+    const favoritesButtonHandler = () => {
+        if (mealIsFavorite) {
+            favoriteMealsCtx.removeFavorite(mealId)
+        } else {
+            favoriteMealsCtx.addFavorite(mealId)
+        }
     }
 
     // for the title of the page
@@ -23,13 +33,15 @@ const MealDetailsScreen = ({navigation, route}) => {
 
         navigation.setOptions({
             title: MealTitle,
-            headerRight: () => { return(<IconButton
-                onPress={Logger}
-                icon='star'
-                color='yellow'
-            />) }
+            headerRight: () => {
+                return (<IconButton
+                    onPress={favoritesButtonHandler}
+                    icon={mealIsFavorite ? 'star' : 'star-outline'}
+                    color='yellow'
+                />)
+            }
         })
-    }, [mealId, navigation])
+    }, [navigation, favoritesButtonHandler])
 
     return (
         <View style={styles.container}>
